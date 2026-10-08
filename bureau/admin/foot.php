@@ -25,8 +25,14 @@
  */
 
 ?>
-</div> <!-- div content -->
-<div style="clear:both;" ></div>
+  </div> <!-- div content -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <span>AlternC &bull; <?php __("Web Hosting Control Panel"); ?></span>
+      <span class="footer-version"><?php echo (isset($L_VERSION) ? $L_VERSION : ''); ?></span>
+    </div>
+  </footer>
+</div> <!-- app-main-area -->
 </div> <!-- div global -->
 <?php 
 if ( isset($debug_alternc) && $debug_alternc->status ) {

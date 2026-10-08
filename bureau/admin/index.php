@@ -78,8 +78,8 @@ if ( empty($logo) ||  ! $logo ) {
 	    <form action="login.php" method="post" name="loginform" target="_top">
       <?php csrf_get(); ?>
             <div class="menu-content">
-                <div><label for="username"><?php echo _("Username"); ?></label></td><td><input type="text" class="int" name="username" id="username" value="" maxlength="128" autocapitalize="none" /></div>
-                <div><label for="password"><?php echo _("Password"); ?></label></td><td><input type="password" class="int" name="password" id="password" value="" maxlength="128" /></div>
+                <div><label for="username"><?php echo _("Username"); ?></label><input type="text" class="int" name="username" id="username" value="" maxlength="128" autocapitalize="none" /></div>
+                <div><label for="password"><?php echo _("Password"); ?></label><input type="password" class="int" name="password" id="password" value="" maxlength="128" /></div>
                 <div class="submit"><input type="submit" class="inb" name="submit" onclick='return logmein();' value="<?php __("Enter"); ?>" /><input type="hidden" id="restrictip" name="restrictip" value="0" />
                 <input type="hidden" id="authip_token" name="authip_token" value="<?php ehe( (empty($authip_token)?'':$authip_token) ) ?>" /></div>
             </div>

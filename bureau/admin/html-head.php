@@ -25,11 +25,22 @@ if (!defined("ALTERNC_PANEL")) exit(); // must be included ;)
  * @copyright AlternC-Team 2000-2017 https://alternc.com/ 
  */
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $lang; ?>" lang="<?php echo $lang; ?>">
+<!DOCTYPE html>
+<html lang="<?php echo $lang; ?>">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $charset; ?>" />
+<meta charset="<?php echo $charset; ?>" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title><?php __("AlternC Control Panel"); ?></title>
+
+<script>
+  (function() {
+    var savedTheme = localStorage.getItem('alternc-theme');
+    if (!savedTheme) {
+      savedTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  })();
+</script>
 
 <link rel="stylesheet" href="/javascript/jquery-ui-themes/redmond/jquery-ui.min.css" type="text/css" />
 <link rel="stylesheet" href="styles/style.css" type="text/css" />
@@ -49,6 +60,7 @@ $favicon = variable_get('favicon', 'favicon.ico' ,'You can specify a favicon, fo
 <link rel="icon" href="<?php echo $favicon;?>" type="image/ico" />
 
 <script src="js/alternc.js" type="text/javascript" ></script>
+<script src="js/modern-ui.js" type="text/javascript" ></script>
 <script src="/javascript/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="/javascript/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
 <script src="/javascript/jquery-tablesorter/jquery.tablesorter.min.js" type="text/javascript"></script>

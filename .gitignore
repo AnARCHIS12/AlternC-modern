@@ -46,3 +46,4 @@ bureau/locales/pt_BR/LC_MESSAGES/messages.po~
 composer.lock
 composer.json
 vendor/
+*.bak

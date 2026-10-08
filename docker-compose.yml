@@ -1,0 +1,50 @@
+services:
+  panel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alternc-panel
+    restart: unless-stopped
+    ports:
+      - "${ALTERNC_BIND_IP:-0.0.0.0}:${ALTERNC_HTTP_PORT:-8080}:80"
+      - "${ALTERNC_BIND_IP:-0.0.0.0}:${ALTERNC_HTTPS_PORT:-8443}:443"
+    environment:
+      - ALTERNC_FQDN=${ALTERNC_FQDN:-localhost}
+      - ALTERNC_ADMIN_USER=${ALTERNC_ADMIN_USER:-admin}
+      - ALTERNC_ADMIN_PASS=${ALTERNC_ADMIN_PASS:-admin123456}
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME:-alternc}
+      - DB_USER=${DB_USER:-alternc}
+      - DB_PASS=${DB_PASS:-alternc_secret}
+    volumes:
+      - alternc-data:/var/alternc
+      - alternc-etc:/etc/alternc
+      - alternc-logs:/var/log/alternc
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:10.11
+    container_name: alternc-db
+    restart: unless-stopped
+    ports:
+      - "${ALTERNC_DB_BIND_IP:-127.0.0.1}:${ALTERNC_MYSQL_PORT:-3307}:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS:-root_secret}
+      - MYSQL_DATABASE=${DB_NAME:-alternc}
+      - MYSQL_USER=${DB_USER:-alternc}
+      - MYSQL_PASSWORD=${DB_PASS:-alternc_secret}
+    volumes:
+      - alternc-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  alternc-data:
+  alternc-etc:
+  alternc-logs:
+  alternc-db-data:

@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlternC Documentation | Plateforme Cloud & Hébergement</title>
+  <style>
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      /* Light Theme */
+      --bg-page: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-sidebar: #f1f5f9;
+      --bg-card: #ffffff;
+      --bg-code: #0f172a;
+      --border-color: #e2e8f0;
+
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --text-link: #2563eb;
+
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --accent-light: #eff6ff;
+
+      --success: #10b981;
+      --success-bg: #ecfdf5;
+      --warning: #f59e0b;
+      --warning-bg: #fffbeb;
+      --danger: #ef4444;
+      --danger-bg: #fef2f2;
+
+      --sidebar-width: 280px;
+      --toc-width: 240px;
+      --header-height: 64px;
+      --radius: 10px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    }
+
+    [data-theme="dark"] {
+      --bg-page: #0b0f19;
+      --bg-surface: #111827;
+      --bg-sidebar: #070b14;
+      --bg-card: #131c2e;
+      --bg-code: #030712;
+      --border-color: #1f293d;
+
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-link: #60a5fa;
+
+      --accent: #3b82f6;
+      --accent-hover: #60a5fa;
+      --accent-light: rgba(59, 130, 246, 0.15);
+
+      --success-bg: rgba(16, 185, 129, 0.12);
+      --warning-bg: rgba(245, 158, 11, 0.12);
+      --danger-bg: rgba(239, 68, 68, 0.12);
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--text-link); text-decoration: none; transition: color 0.15s ease; }
+    a:hover { text-decoration: underline; }
+
+    /* SVG Icons Helper */
+    .icon {
+      width: 1em;
+      height: 1em;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      display: inline-block;
+    }
+
+    /* Top Navigation */
+    .header {
+      position: sticky;
+      top: 0;
+      height: var(--header-height);
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+    }
+
+    .brand svg {
+      width: 22px;
+      height: 22px;
+      color: var(--accent);
+    }
+
+    .brand-badge {
+      font-size: 0.7rem;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .search-bar {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-bar svg {
+      position: absolute;
+      left: 12px;
+      color: var(--text-muted);
+      width: 14px;
+      height: 14px;
+    }
+
+    .search-input {
+      padding: 0.45rem 1rem 0.45rem 2.25rem;
+      border-radius: 9999px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-page);
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      width: 240px;
+      outline: none;
+      transition: all 0.15s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light);
+      width: 300px;
+    }
+
+    .btn-icon {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .btn-icon:hover {
+      background: var(--bg-page);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Layout */
+    .docs-container {
+      display: flex;
+      min-height: calc(100vh - var(--header-height));
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: var(--sidebar-width);
+      min-width: var(--sidebar-width);
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      padding: 1.5rem 1.25rem;
+      height: calc(100vh - var(--header-height));
+      position: sticky;
+      top: var(--header-height);
+      overflow-y: auto;
+    }
+
+    .sidebar-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      padding-left: 0.6rem;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.45rem 0.65rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      border-radius: var(--radius);
+      transition: all 0.15s ease;
+      font-weight: 500;
+    }
+
+    .sidebar-link svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .sidebar-link:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .sidebar-link.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .sidebar-link.active svg {
+      color: #ffffff;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 2.5rem 3.5rem;
+      min-width: 0;
+      max-width: 900px;
+    }
+
+    /* Right Table of Contents */
+    .toc {
+      width: var(--toc-width);
+      min-width: var(--toc-width);
+      padding: 2.5rem 1.5rem;
+      height: calc(100vh - var(--header-height));
+      position: sticky;
+      top: var(--header-height);
+      overflow-y: auto;
+    }
+
+    .toc-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .toc-list {
+      list-style: none;
+      font-size: 0.8125rem;
+      border-left: 1px solid var(--border-color);
+    }
+
+    .toc-item {
+      padding-left: 0.85rem;
+      margin: 0.4rem 0;
+    }
+
+    .toc-link {
+      color: var(--text-secondary);
+      display: block;
+      transition: color 0.15s ease;
+    }
+
+    .toc-link:hover, .toc-link.active {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Typography & Sections */
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .lead {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 2.5rem 0 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h2 svg {
+      width: 20px;
+      height: 20px;
+      color: var(--accent);
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    /* Code Blocks */
+    .code-box {
+      background: var(--bg-code);
+      color: #f8fafc;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      margin: 1.25rem 0;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      color: #94a3b8;
+    }
+
+    .code-copy-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.15s ease;
+    }
+
+    .code-copy-btn svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .code-copy-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    pre {
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.875em;
+    }
+
+    p code, li code {
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    /* Callouts */
+    .callout {
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid;
+      background: var(--bg-surface);
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .callout svg { width: 18px; height: 18px; margin-top: 0.1rem; flex-shrink: 0; }
+    .callout-content { flex: 1; }
+    .callout-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; }
+    .callout-content p { margin: 0; font-size: 0.875rem; }
+
+    .callout-tip { border-color: var(--success); background: var(--success-bg); }
+    .callout-tip svg, .callout-tip .callout-title { color: var(--success); }
+
+    .callout-info { border-color: var(--accent); background: var(--accent-light); }
+    .callout-info svg, .callout-info .callout-title { color: var(--accent); }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      overflow: hidden;
+      font-size: 0.875rem;
+      background: var(--bg-surface);
+    }
+
+    th {
+      background: var(--bg-page);
+      color: var(--text-primary);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      font-weight: 600;
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    /* Feature Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--accent-light);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+    }
+
+    .card-icon svg { width: 18px; height: 18px; }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+      color: var(--text-primary);
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    @media (max-width: 1100px) {
+      .toc { display: none; }
+      .main-content { padding: 2rem 1.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .search-input { width: 160px; }
+      .search-input:focus { width: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+      <span>AlternC Docs</span>
+      <span class="brand-badge">Offline & 100% Souverain</span>
+    </div>
+
+    <div class="header-actions">
+      <div class="search-bar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="doc-search" class="search-input" placeholder="Rechercher dans la doc..." />
+      </div>
+
+      <button id="theme-btn" class="btn-icon" title="Basculer le thème">
+        <svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+
+      <a href="https://github.com/AlternC/AlternC" target="_blank" class="btn-icon" title="Dépôt Git">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <div class="docs-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-group">
+        <div class="sidebar-title">Démarrage rapide</div>
+        <ul class="sidebar-menu">
+          <li><a href="#introduction" class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> Introduction</a></li>
+          <li><a href="#docker-install" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg> Installation Docker</a></li>
+          <li><a href="#port-isolation" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg> Isolation des ports</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-group">
+        <div class="sidebar-title">Architecture & Frontend</div>
+        <ul class="sidebar-menu">
+          <li><a href="#frontend-2026" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg> UI & Design System</a></li>
+          <li><a href="#reverse-proxy" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Nginx & Reverse Proxy</a></li>
+          <li><a href="#env-variables" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg> Variables d'environnement</a></li>
+          <li><a href="#faq" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> FAQ & Dépannage</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- Section: Introduction -->
+      <section id="introduction">
+        <h1>Documentation AlternC</h1>
+        <p class="lead">Plateforme libre d'hébergement mutualisé autogérée, propulsée par PHP 8.3, MariaDB et conteneurisée sans aucun conflit de ports.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg></div>
+            <div class="card-title">Docker PHP 8.3</div>
+            <p class="card-desc">Conteneurisation légère sous PHP 8.3, MariaDB 10.11 et persistance des volumes.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg></div>
+            <div class="card-title">Zéro Conflit de Port</div>
+            <p class="card-desc">Ports HTTP (8080), SSL (8443) et DB (3307) isolés. Ne bloque aucun service hôte existant.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></div>
+            <div class="card-title">UI Moderne 2026</div>
+            <p class="card-desc">Thème sombre/clair natif, typographie système, jauges de quotas et navigation fluide.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+            <div class="card-title">Spotlight (Ctrl+K)</div>
+            <p class="card-desc">Palette de commande intégrée pour trouver un domaine, une boîte mail ou un outil au clavier.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Docker Installation -->
+      <section id="docker-install">
+        <h2>Installation Docker en 1 commande</h2>
+        <p>Un script d'installation moderne en ligne de commande configure l'environnement, inspecte les ports libres sur la machine hôte et déploie les conteneurs.</p>
+
+        <div class="code-box">
+          <div class="code-header">
+            <span>bash — Déploiement guidé</span>
+            <button class="code-copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>chmod +x install.sh
+./install.sh</code></pre>
+        </div>
+
+        <div class="callout callout-tip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          <div class="callout-content">
+            <div class="callout-title">Déploiement non-interactif (Automated / CI/CD)</div>
+            <p>Pour un déploiement direct sans interaction : <code>./install.sh -y</code>.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Port Isolation -->
+      <section id="port-isolation">
+        <h2>Isolation des Ports</h2>
+        <p>L'architecture Docker sépare chaque port via le fichier <code>.env</code> afin de cohabiter avec tout autre serveur :</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Port Hôte par défaut</th>
+                <th>Port Conteneur</th>
+                <th>Variable d'environnement</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Web HTTP</strong></td>
+                <td><code>8080</code></td>
+                <td><code>80</code></td>
+                <td><code>ALTERNC_HTTP_PORT</code></td>
+              </tr>
+              <tr>
+                <td><strong>Web HTTPS (SSL)</strong></td>
+                <td><code>8443</code></td>
+                <td><code>443</code></td>
+                <td><code>ALTERNC_HTTPS_PORT</code></td>
+              </tr>
+              <tr>
+                <td><strong>MariaDB / MySQL</strong></td>
+                <td><code>3307</code></td>
+                <td><code>3306</code></td>
+                <td><code>ALTERNC_MYSQL_PORT</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section: Frontend 2026 -->
+      <section id="frontend-2026">
+        <h2>Interface & Design System 2026</h2>
+        <p>Le panneau d'administration dispose désormais d'un design contemporain :</p>
+        
+        <ul style="padding-left: 1.5rem; margin-bottom: 1.5rem; color: var(--text-secondary);">
+          <li><strong>Architecture Layout</strong> : Sidebar sticky avec navigation par icônes, Topbar avec badges serveurs et profil utilisateur.</li>
+          <li><strong>Dark / Light Mode</strong> : Bascule de thème instantanée stockée dans <code>localStorage</code> sans scintillement.</li>
+          <li><strong>Données tabulaires</strong> : Tableaux aérés, zébrures douces, hover states et contrastes accessibles.</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <div class="callout-content">
+            <div class="callout-title">Palette de commande (Ctrl+K)</div>
+            <p>Appuyez sur <kbd>Ctrl+K</kbd> ou <kbd>Cmd+K</kbd> sur n'importe quelle page du panneau pour ouvrir la recherche rapide Spotlight.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Reverse Proxy -->
+      <section id="reverse-proxy">
+        <h2>Intégration Reverse Proxy (Nginx)</h2>
+        <p>Pour exposer AlternC sur un sous-domaine public (ex: <code>panel.mondomaine.com</code>) via un reverse proxy Nginx :</p>
+
+        <div class="code-box">
+          <div class="code-header">
+            <span>nginx.conf — VirtualHost Reverse Proxy</span>
+            <button class="code-copy-btn" onclick="copyCode(this)">Copier</button>
+          </div>
+          <pre><code>server {
+    listen 80;
+    server_name panel.example.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}</code></pre>
+        </div>
+      </section>
+
+      <!-- Section: Environment Variables -->
+      <section id="env-variables">
+        <h2>Référence des Variables <code>.env</code></h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Défaut</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>ALTERNC_HTTP_PORT</code></td>
+                <td><code>8080</code></td>
+                <td>Port web HTTP exposé sur la machine hôte.</td>
+              </tr>
+              <tr>
+                <td><code>ALTERNC_HTTPS_PORT</code></td>
+                <td><code>8443</code></td>
+                <td>Port web SSL exposé sur la machine hôte.</td>
+              </tr>
+              <tr>
+                <td><code>ALTERNC_MYSQL_PORT</code></td>
+                <td><code>3307</code></td>
+                <td>Port MariaDB accessible depuis l'extérieur.</td>
+              </tr>
+              <tr>
+                <td><code>ALTERNC_ADMIN_USER</code></td>
+                <td><code>admin</code></td>
+                <td>Identifiant de connexion administrateur au panel.</td>
+              </tr>
+              <tr>
+                <td><code>ALTERNC_ADMIN_PASS</code></td>
+                <td><em>généré</em></td>
+                <td>Mot de passe de l'administrateur principal.</td>
+              </tr>
+              <tr>
+                <td><code>DB_NAME</code></td>
+                <td><code>alternc</code></td>
+                <td>Nom de la base de données interne.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Section: FAQ -->
+      <section id="faq">
+        <h2>FAQ & Commandes Utiles</h2>
+        <div class="card" style="margin-bottom: 1rem;">
+          <div class="card-title">Comment consulter les logs en temps réel ?</div>
+          <p class="card-desc">Exécutez : <code>docker compose logs -f</code>.</p>
+        </div>
+        <div class="card" style="margin-bottom: 1rem;">
+          <div class="card-title">Comment changer le port sans réinstaller ?</div>
+          <p class="card-desc">Modifiez <code>ALTERNC_HTTP_PORT</code> dans votre fichier <code>.env</code>, puis lancez : <code>docker compose up -d</code>.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Right Table of Contents -->
+    <aside class="toc">
+      <div class="toc-title">Sur cette page</div>
+      <ul class="toc-list">
+        <li class="toc-item"><a href="#introduction" class="toc-link">Introduction</a></li>
+        <li class="toc-item"><a href="#docker-install" class="toc-link">Installation Docker</a></li>
+        <li class="toc-item"><a href="#port-isolation" class="toc-link">Isolation des ports</a></li>
+        <li class="toc-item"><a href="#frontend-2026" class="toc-link">Interface & Design 2026</a></li>
+        <li class="toc-item"><a href="#reverse-proxy" class="toc-link">Reverse Proxy Nginx</a></li>
+        <li class="toc-item"><a href="#env-variables" class="toc-link">Variables d'environnement</a></li>
+        <li class="toc-item"><a href="#faq" class="toc-link">FAQ & Dépannage</a></li>
+      </ul>
+    </aside>
+
+  </div>
+
+  <script>
+    const themeBtn = document.getElementById('theme-btn');
+    const themeIcon = document.getElementById('theme-icon');
+
+    const sunSvg = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    const moonSvg = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+
+    function updateTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('doc-theme', theme);
+      themeIcon.innerHTML = theme === 'dark' ? sunSvg : moonSvg;
+    }
+
+    const savedTheme = localStorage.getItem('doc-theme') || 'dark';
+    updateTheme(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      updateTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    function copyCode(btn) {
+      const pre = btn.closest('.code-box').querySelector('pre');
+      navigator.clipboard.writeText(pre.innerText).then(() => {
+        const original = btn.innerText;
+        btn.innerText = 'Copié !';
+        setTimeout(() => { btn.innerText = original; }, 2000);
+      });
+    }
+
+    const searchInput = document.getElementById('doc-search');
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll('.sidebar-link').forEach(link => {
+        const text = link.textContent.toLowerCase();
+        link.parentElement.style.display = text.includes(q) ? 'block' : 'none';
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          document.querySelectorAll('.toc-link').forEach(l => {
+            l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('section[id]').forEach(sec => observer.observe(sec));
+  </script>
+</body>
+</html>

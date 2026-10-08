@@ -29,52 +29,80 @@ require_once("../class/config.php");
 $logo = variable_get('logo_menu', '' ,'You can specify a logo for the menu, example /images/my_logo.png .', array('desc'=>'URL','type'=>'string'));
 
 echo '<div class="menutoplogo">';
-if ( ! empty($logo) &&  ! is_null($logo)) {
-  echo "<img src=\"".$logo."\" border='0' alt='AlternC' width='45px' height='46px' />";
+if (!empty($logo) && !is_null($logo)) {
+  echo "<img src=\"".$logo."\" border='0' alt='AlternC' />";
+} else {
+  echo "<img src='images/logo3.png' border='0' alt='AlternC' />";
 }
-echo "<img src='images/logo3.png' border='0' alt='AlternC' ".(( ! empty($logo) &&  ! is_null($logo))?"width='140px'":"")." height='40px' />";
+echo '<div class="sidebar-brand-text">';
+echo '<span class="sidebar-brand-title">AlternC</span>';
+echo '<span class="sidebar-brand-sub">' . _("Cloud Panel") . '</span>';
+echo '</div>';
 echo "</div>";
 ?>
-<p class="currentuser"><?php echo sprintf(_("Welcome %s"),$mem->user["login"]); ?></p>
+
+<div class="currentuser">
+  <span><?php echo sprintf(_("Welcome %s"), htmlspecialchars($mem->user["login"])); ?></span>
+</div>
 
 <?php
+
+$category_icons = array(
+  'dom' => 'fa-globe',
+  'mail' => 'fa-envelope',
+  'mysql' => 'fa-database',
+  'ftp' => 'fa-folder-open',
+  'bro' => 'fa-file-code',
+  'quota' => 'fa-chart-pie',
+  'cron' => 'fa-clock',
+  'log' => 'fa-list-alt',
+  'hta' => 'fa-shield-alt',
+  'admin' => 'fa-user-shield',
+  'authip' => 'fa-network-wired',
+  'mem' => 'fa-user-cog',
+  'piwik' => 'fa-chart-line',
+  'stats' => 'fa-chart-bar',
+  'lxc' => 'fa-cube',
+  'vm' => 'fa-server',
+);
 
 $obj_menu = $menu->getmenu();
 
 foreach ($obj_menu as $k => $m ) {
+  $icon_class = isset($category_icons[$k]) ? $category_icons[$k] : 'fa-folder';
+
   echo "<div class='menu-box {$k}-menu ".(!empty($m['divclass'])?$m['divclass']:'')."'>\n";
   echo "  <a href=\"".$m['link']."\"";
   if (!empty($m['target'])) echo " target='". $m['target']."' ";
   echo ">\n";
-  echo "    <span class='menu-title'>\n";
-  echo "        <span class='";
-  if (!empty($m['class'])) echo $m['class']." ";
-  echo "'>"; // fin span ouvrant
-  echo $m['title'];
+  echo "    <div class='menu-title'>\n";
+  echo "      <div class='menu-title-left'>\n";
+  echo "        <span class='menu-icon'><i class='fas {$icon_class}'></i></span>\n";
+  echo "        <span class='menu-text " . (!empty($m['class']) ? $m['class'] : '') . "'>" . $m['title'] . "</span>\n";
+  echo "      </div>\n";
+
   if (isset($m['quota_total'])) {
-    if (!$quota->cancreate($k)) { echo '<span class="full">' ; } else { echo "<span>"; }
-    echo " (".$m['quota_used']."/".$m['quota_total'].")";
-    echo "</span>\n";
-  } // if there are some quota
-  echo "      </span>";
-  echo "    </span>\n";
+    $is_full = !$quota->cancreate($k);
+    echo "      <span class='quota-badge" . ($is_full ? ' quota-badge-full' : '') . "'>" . $m['quota_used'] . "/" . $m['quota_total'] . "</span>\n";
+  }
+  echo "    </div>\n";
   echo "  </a>\n";
 
   if (!empty($m['links'])) {
-  if ( $m['visibility']) $visible=""; else $visible="style=\"display: none\"";
+    if ($m['visibility']) $visible = ""; else $visible = "style=\"display: none\"";
     echo "<div class='menu-content' id='menu-$k' $visible >";
     echo "  <ul>";
-    foreach( $m['links'] as $l ) {
-      if ( $l['txt'] == 'progressbar' ) {
+    foreach ($m['links'] as $l) {
+      if ($l['txt'] == 'progressbar') {
         $usage_percent = (int) ($l['used'] / $l['total'] * 100);
-        echo "<li>";
-        echo '<div class="progress-bar">';
-        echo '<div class="barre" style="width:'.$usage_percent.'%; background-color:'.PercentToColor($usage_percent).'" ></div>';
-        //echo '<div class="txt">'.$usage.' %</div>';
+        echo "<li class='menu-progress-item'>";
+        echo '<div class="progress-bar-container">';
+        echo '<div class="progress-bar-track"><div class="progress-bar-fill" style="width:'.$usage_percent.'%; background-color:'.PercentToColor($usage_percent).'" ></div></div>';
+        echo '<span class="progress-bar-label">'.$usage_percent.'%</span>';
         echo '</div>';
         echo "</li>";
         continue;
-      } // progressbar
+      }
       echo "<li><a href=\"".$l['url']."\" ";
       if (!empty($l['onclick'])) echo " onclick='". $l['onclick']."' ";
       if (!empty($l['target'])) echo " target='". $l['target']."' ";
@@ -87,15 +115,9 @@ foreach ($obj_menu as $k => $m ) {
     echo "</div>";
   }
   echo "</div>";
-
 }
-
 ?>
-<p class="center"><a href="about.php"><img src="images/logo2.png" class="menulogo" border="0" alt="AlternC" title="<?php __("About"); ?>" width='150px' height='102px' /></a>
-<br />
-<?php 
-echo "$L_VERSION";
-?>
-</p>
 
-
+<div class="sidebar-footer">
+  <a href="about.php" title="<?php __("About"); ?>">AlternC <?php echo "$L_VERSION"; ?></a>
+</div>
