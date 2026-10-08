@@ -45,6 +45,7 @@ if (!defined("ALTERNC_PANEL")) exit(); // must be included ;)
 <link rel="stylesheet" href="styles/style.css" type="text/css" />
 <link rel="stylesheet" href="styles/solid.css" type="text/css" /><!-- fontawesome solid font -->
 <link rel="stylesheet" href="styles/fontawesome.css" type="text/css" />
+<link rel="stylesheet" href="/javascript/jquery-ui/themes/base/jquery-ui.min.css" type="text/css" />
 <?php
 if (file_exists("styles/style-custom.css") ) {
   echo '<link rel="stylesheet" href="styles/style-custom.css" type="text/css" />';

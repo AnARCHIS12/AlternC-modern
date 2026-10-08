@@ -242,7 +242,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     initTheme();
 
-    var themeBtn = document.getElementById('theme-toggle');
+    var themeBtn = document.getElementById('theme-toggle') || document.getElementById('theme-toggle-btn');
     if (themeBtn) {
       themeBtn.addEventListener('click', toggleTheme);
     }
@@ -250,5 +250,7 @@
     initSidebar();
     initQuickSearch();
   });
+
+  window.toggleTheme = toggleTheme;
 
 })();

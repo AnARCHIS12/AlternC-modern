@@ -24,6 +24,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Setup UTF-8 locales
 RUN sed -i -e 's/# fr_FR.UTF-8 UTF-8/fr_FR.UTF-8 UTF-8/' /etc/locale.gen && \
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    sed -i -e 's/# es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen && \
+    sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen && \
+    sed -i -e 's/# it_IT.UTF-8 UTF-8/it_IT.UTF-8 UTF-8/' /etc/locale.gen && \
+    sed -i -e 's/# pt_BR.UTF-8 UTF-8/pt_BR.UTF-8 UTF-8/' /etc/locale.gen && \
+    sed -i -e 's/# nl_NL.UTF-8 UTF-8/nl_NL.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
 
 ENV LANG=fr_FR.UTF-8
@@ -83,6 +88,17 @@ COPY etc/alternc/ /etc/alternc/
 RUN sed -i -e "s/@@REPLACED_DURING_BUILD@@/3.5-docker/" \
     /usr/share/alternc/panel/class/local.php \
     /usr/share/alternc/install/alternc.install
+
+# Compile gettext catalogs
+RUN find /usr/share/alternc/panel/locales -maxdepth 1 -mindepth 1 -type d -name "*_*" | while read d; do \
+      if [ -d "$d/LC_MESSAGES" ]; then \
+        cd "$d/LC_MESSAGES" && \
+        if ls *.po 1> /dev/null 2>&1; then \
+          msgcat --use-first *.po > alternc.po 2>/dev/null || cat *.po > alternc.po; \
+          msgfmt alternc.po -o alternc.mo 2>/dev/null || true; \
+        fi; \
+      fi; \
+    done
 
 # Apache site config
 COPY docker/apache-alternc.conf /etc/apache2/sites-available/000-default.conf

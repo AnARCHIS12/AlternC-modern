@@ -1,31 +1,21 @@
 <?php
 
-$lang_translation = array(# If you comment lang here, it won't be displayed. 
-    "fr_FR" => "Français",
+$lang_translation = array(
     "en_US" => "English",
+    "fr_FR" => "Français",
     "es_ES" => "Español",
-    #			"it_IT" => "Italiano",
-    #			"de_DE" => "Deutsch",
-    #			"pt_BR" => "Portuguese",
-    #    "nl_NL" => "Dutch",
+    "de_DE" => "Deutsch",
 );
 
 global $arr_lang_translation;
-$arr_lang_translation = $lang_translation; // not pretty but I don't want side effect right now
+$arr_lang_translation = $lang_translation;
 
 function update_locale($langpath) {
     global $arr_lang_translation;
     $locales = array();
-    $file = file("/etc/locale.gen", FILE_SKIP_EMPTY_LINES);
-    if (!is_array($file)) {
-        return $locales;
-    }
-    foreach ($file as $v) {
-        if ((preg_match("/^([a-z][a-z]_[A-Z][A-Z])/", trim($v), $mat) && file_exists($langpath . '/' . $mat[1]))) {
-            if (!array_key_exists($mat[1], $arr_lang_translation)) {
-                continue;
-            }
-            $locales[$mat[1]] = $mat[1];
+    foreach ($arr_lang_translation as $code => $label) {
+        if (file_exists($langpath . '/' . $code)) {
+            $locales[$code] = $code;
         }
     }
     if (!count($locales)) {
@@ -34,65 +24,44 @@ function update_locale($langpath) {
     return $locales;
 }
 
-// setlang is on the link at the login page
-if (isset($_REQUEST["setlang"])) {
-    $lang = $_REQUEST["setlang"];
-    $setlang = $_REQUEST["setlang"];
-} elseif (isset($_COOKIE['lang'])) {
-    $lang = $_COOKIE['lang'];
+// setlang parameter or saved cookie
+if (isset($_REQUEST["setlang"]) && !empty($_REQUEST["setlang"])) {
+    $lang = trim($_REQUEST["setlang"]);
+    $setlang = $lang;
+} elseif (isset($_COOKIE['lang']) && !empty($_COOKIE['lang'])) {
+    $lang = trim($_COOKIE['lang']);
 }
 
 $langpath = bindtextdomain("alternc", ALTERNC_LOCALES);
-
-// Create or update a locale.php file if it is outdated.
 $locales = update_locale($langpath);
 
-// Default to en_US : 
-if (!isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
-    $_SERVER["HTTP_ACCEPT_LANGUAGE"] = "en_US";
-}
-
-if (!(isset($lang))) {  // Use the browser first preferred language
-    $lang = strtolower(substr(trim($_SERVER["HTTP_ACCEPT_LANGUAGE"]), 0, 5));
-}
-
-
-if (!isset($locales[$lang])) { // Requested language not found in locales
-    // treat special cases such as en_AU or fr_BF : use the language only, not the country.
-    $ll = substr($lang, 0, 2);
+if (!isset($lang) || empty($lang) || !isset($locales[$lang])) {
+    $pref = isset($_SERVER["HTTP_ACCEPT_LANGUAGE"]) ? strtolower(substr(trim($_SERVER["HTTP_ACCEPT_LANGUAGE"]), 0, 2)) : 'en';
+    $lang = "en_US";
     foreach ($locales as $l) {
-        if (substr($l, 0, 2) == $ll) {
+        if (strtolower(substr($l, 0, 2)) === $pref) {
             $lang = $l;
             break;
         }
     }
 }
 
-if (!isset($locales[$lang])) {
-    foreach($locales as $lang) break; // take the first lang
-}
 if (isset($setlang) && isset($lang)) {
-    setcookie("lang", $lang);
-}
-
-// User chose a non existent language, select the first available one 
-if ($lang == NULL) {
-    $lang = "en_US";
+    setcookie("lang", $lang, time() + (365 * 86400), "/");
+    $_COOKIE['lang'] = $lang;
 }
 
 /* Language ok, set the locale environment */
-putenv("LC_MESSAGES=" . $lang);
-putenv("LANG=" . $lang);
-putenv("LANGUAGE=" . $lang);
-// this locale MUST be selected in "dpkg-reconfigure locales"
-setlocale(LC_ALL, $lang);
+$locale_utf8 = (strpos($lang, '.') === false) ? $lang . ".UTF-8" : $lang;
+putenv("LC_ALL=" . $locale_utf8);
+putenv("LC_MESSAGES=" . $locale_utf8);
+putenv("LANG=" . $locale_utf8);
+putenv("LANGUAGE=" . $locale_utf8);
+
+setlocale(LC_ALL, $locale_utf8, $lang, str_replace('.UTF-8', '.utf8', $locale_utf8), 'C.UTF-8');
+
+bindtextdomain("alternc", ALTERNC_LOCALES);
+bind_textdomain_codeset("alternc", "UTF-8");
 textdomain("alternc");
 
-$empty = "";
-if (_($empty) && preg_match("#charset=([A-Za-z0-9\.-]*)#", _($empty), $mat)) {
-    $charset = $mat[1];
-}
-if (!isset($charset) || !$charset) {
-    $charset = "UTF-8";
-}
-bind_textdomain_codeset("alternc", "$charset");
+$charset = "UTF-8";

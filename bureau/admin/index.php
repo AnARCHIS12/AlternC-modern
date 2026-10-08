@@ -46,100 +46,113 @@ if (!isset($charset) || ! $charset) $charset="UTF-8";
 require_once("html-head.php");
 ?>
 <body class="login_page">
-  <div id="global">
+  <div class="login-wrapper">
+    <div class="login-top-bar">
+      <button id="theme-toggle-btn" class="theme-toggle-pill" type="button" onclick="toggleTheme()" aria-label="<?php echo _("Toggle theme"); ?>">
+        <i id="theme-icon" class="fas fa-moon"></i>
+      </button>
+    </div>
 
-    <div id="content">
+    <div id="content" class="login-card">
 <?php
 // Getting logo
 $logo = variable_get('logo_login', '' ,'You can specify a logo for the login page, example /images/my_logo.png .', array('desc'=>'URL','type'=>'string'));
-if ( empty($logo) ||  ! $logo ) { 
+if ( empty($logo) || ! $logo ) { 
   $logo = 'images/logo.png'; 
 }
 ?>
-      <p id='logo'>  <img src="<?php echo $logo; ?>" border="0" height="100px" alt="<?php __("Web Hosting Control Panel"); ?>" title="<?php __("Web Hosting Control Panel"); ?>" />
-      </p>
-      <p>&nbsp;</p>
-    <?php echo $msg->msg_html_all(); ?>
-    <br/>
-    <?php
-    if (isset($_GET['authip_token'])) $authip_token=$_GET['authip_token'];
-    if (variable_get('https_warning', false, 'warn users to switch to HTTPS') && !isset($_SERVER['HTTPS'])) {
-      echo '<div class="unsecure"><strong>' . sprintf(_('WARNING: you are trying to access the control panel insecurely, click <a href="https://%s">here</a> to go to secure mode'), $_SERVER["HTTP_HOST"]) . '</strong></div>';
-    }
-    ?>
-    <div class="block_list">
-      <div class="block_login_page">
-        <?php __("To connect to the hosting control panel, enter your AlternC's login and password in the following form and click 'Enter'"); ?>
+      <div class="login-header">
+        <div class="login-logo-box">
+          <img src="<?php echo $logo; ?>" alt="AlternC" class="login-logo-img" />
+        </div>
+        <h1 class="login-main-title"><?php __("AlternC access"); ?></h1>
+        <p class="login-desc"><?php __("To connect to the hosting control panel, enter your AlternC's login and password in the following form and click 'Enter'"); ?></p>
       </div>
-      <div class="block_login_page">
-	<div class="menu-box">
-        <?php if (!empty($authip_token)) { echo "<p style='color:red;'>";__("You are attemping to connect without IP restriction."); echo "</p>"; } ?>
-            <div class="menu-title"><?php __("AlternC access"); ?></div>
-	    <form action="login.php" method="post" name="loginform" target="_top">
-      <?php csrf_get(); ?>
-            <div class="menu-content">
-                <div><label for="username"><?php echo _("Username"); ?></label><input type="text" class="int" name="username" id="username" value="" maxlength="128" autocapitalize="none" /></div>
-                <div><label for="password"><?php echo _("Password"); ?></label><input type="password" class="int" name="password" id="password" value="" maxlength="128" /></div>
-                <div class="submit"><input type="submit" class="inb" name="submit" onclick='return logmein();' value="<?php __("Enter"); ?>" /><input type="hidden" id="restrictip" name="restrictip" value="0" />
-                <input type="hidden" id="authip_token" name="authip_token" value="<?php ehe( (empty($authip_token)?'':$authip_token) ) ?>" /></div>
-            </div>
-          </form>
-	</div>
-      </div>
-      <div class="block_login_page">
-        <a href="request_reset.php"><?php echo _('Request new password'); ?></a>
-        <br />
-        <?php __("You must accept the session cookie to log-in"); ?>
-        <br />
-        <?php echo _("If you want to use a different language, choose it in the list below"); ?>
-        <br />
-              <?php 
-            foreach($locales as $l) {
-              ?>
-              <a href="?setlang=<?php echo $l; ?>"><?php if (isset($lang_translation[$l])) echo $lang_translation[$l]; else echo $l;  ?></a>
-              <?php } ?>
-        <br />
-        <?php
-         $mem->show_help("login",true); 
-        ?>
-      </div>
-      <div class="block_login_page">
-        <?php
 
-          // Here we used to have a form to enter the webmail.
-          // Following the "rule of less astonishment, we try to put it here again, even though the webmail is now a plugin.
-          $res=$hooks->invoke("hook_admin_webmail");
-        if (($wr=variable_get("webmail_redirect")) && isset($res[$wr]) && $res[$wr]) {
-          $url=$res[$wr];
-        } else {
-          foreach($res as $r) if ($r!==false) { $url=$r; break; }
-        }
-        if (isset($url) && $url)  {
-        ?>
-          <p><a href="<?php echo $url; ?>"><?php __("To read your mail in a browser, click here to go to your server's Webmail"); ?></a></p>
-        <?php
-        }
-        ?>
-      </div>
-    </div>
-    <div class="alternc_powered">
-        <a href="http://www.alternc.com/"><img src="images/powered_by_alternc2.png" width="128" height="32" alt="Powered by AlternC" /></a>
-    </div>
+      <?php echo $msg->msg_html_all(); ?>
 
-    <script type="text/javascript">
-    $('#username').focus();
-
-    function logmein(){
-      if ( $('#username').val() =='' || $('#password').val() =='' ) {
-        alert("<?php __("Need a login and a password"); ?>");
-        return false;
+      <?php
+      if (isset($_GET['authip_token'])) $authip_token=$_GET['authip_token'];
+      if (variable_get('https_warning', false, 'warn users to switch to HTTPS') && !isset($_SERVER['HTTPS'])) {
+        echo '<div class="unsecure"><strong>' . sprintf(_('WARNING: you are trying to access the control panel insecurely, click <a href="https://%s">here</a> to go to secure mode'), $_SERVER["HTTP_HOST"]) . '</strong></div>';
       }
-      return true;
-    }
-    </script>
+      if (!empty($authip_token)) {
+        echo "<div class='alert alert-warning'>" . _("You are attemping to connect without IP restriction.") . "</div>";
+      }
+      ?>
 
+      <form action="login.php" method="post" name="loginform" class="login-form" target="_top">
+        <?php csrf_get(); ?>
+        <div class="form-field">
+          <label for="username"><?php echo _("Username"); ?></label>
+          <input type="text" class="int form-input" name="username" id="username" value="" maxlength="128" autocapitalize="none" autocomplete="username" placeholder="<?php echo _("Username"); ?>" required />
+        </div>
+
+        <div class="form-field">
+          <label for="password"><?php echo _("Password"); ?></label>
+          <input type="password" class="int form-input" name="password" id="password" value="" maxlength="128" autocomplete="current-password" placeholder="<?php echo _("Password"); ?>" required />
+        </div>
+
+        <div class="form-submit-row">
+          <input type="submit" class="inb btn-login-submit" name="submit" onclick='return logmein();' value="<?php __("Enter"); ?>" />
+          <input type="hidden" id="restrictip" name="restrictip" value="0" />
+          <input type="hidden" id="authip_token" name="authip_token" value="<?php ehe( (empty($authip_token)?'':$authip_token) ) ?>" />
+        </div>
+      </form>
+
+      <div class="login-footer">
+        <div class="login-links-row">
+          <a href="request_reset.php" class="login-reset-link"><?php echo _('Request new password'); ?></a>
+        </div>
+
+        <div class="login-lang-box">
+          <div class="login-lang-label"><?php echo _("If you want to use a different language, choose it in the list below"); ?></div>
+          <div class="login-lang-pills">
+            <?php foreach($locales as $l): ?>
+              <?php $isActive = ($l === $lang); ?>
+              <a href="?setlang=<?php echo urlencode($l); ?>" class="lang-pill <?php echo $isActive ? 'active' : ''; ?>">
+                <?php echo htmlspecialchars(isset($lang_translation[$l]) ? $lang_translation[$l] : $l); ?>
+              </a>
+            <?php endforeach; ?>
+          </div>
+        </div>
+
+        <div class="login-cookie-hint">
+          <span><?php __("You must accept the session cookie to log-in"); ?></span>
+        </div>
+
+        <?php
+          $res=$hooks->invoke("hook_admin_webmail");
+          if (($wr=variable_get("webmail_redirect")) && isset($res[$wr]) && $res[$wr]) {
+            $url=$res[$wr];
+          } else {
+            foreach($res as $r) if ($r!==false) { $url=$r; break; }
+          }
+          if (isset($url) && $url) {
+        ?>
+          <div class="webmail-link-box">
+            <a href="<?php echo $url; ?>"><?php __("To read your mail in a browser, click here to go to your server's Webmail"); ?></a>
+          </div>
+        <?php } ?>
+      </div>
+
+      <div class="alternc_powered">
+        <a href="https://alternc.com/"><img src="images/powered_by_alternc2.png" width="128" height="32" alt="Powered by AlternC" /></a>
+      </div>
+
+    </div>
   </div>
-  <div style="clear:both;" ></div>
-  </div>
+
+  <script type="text/javascript">
+  $('#username').focus();
+
+  function logmein(){
+    if ( $('#username').val() =='' || $('#password').val() =='' ) {
+      alert("<?php __("Need a login and a password"); ?>");
+      return false;
+    }
+    return true;
+  }
+  </script>
 </body>
 </html>

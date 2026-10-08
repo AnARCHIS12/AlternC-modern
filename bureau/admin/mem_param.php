@@ -136,13 +136,17 @@ if ($mem->user["su"]) {
 </div> <!-- tabsmem -->
 
 <script type="text/javascript">
-    if (document.forms['main'].getElementsByClassName("oldpass").length > 0) {
+    if (document.forms['main'] && document.forms['main'].getElementsByClassName("oldpass").length > 0) {
         document.forms['main'].oldpass.focus();
     }
-    else {
+    else if (document.getElementById('newpass')) {
         document.getElementById('newpass').focus();
     }
-    $(function() {$( "#tabsmem" ).tabs();});
+    $(function() {
+        if (typeof $.fn.tabs === 'function') {
+            $( "#tabsmem" ).tabs();
+        }
+    });
 </script>
 
 <?php include_once("foot.php"); ?>

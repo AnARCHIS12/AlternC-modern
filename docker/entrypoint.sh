@@ -125,6 +125,19 @@ php -r "
   variable_set('https_warning', 0);
 " 2>/dev/null || true
 
+# Compile gettext catalogs if not yet present
+find /usr/share/alternc/panel/locales -maxdepth 1 -mindepth 1 -type d -name "*_*" | while read d; do
+  if [ -d "$d/LC_MESSAGES" ] && [ ! -f "$d/LC_MESSAGES/alternc.mo" ]; then
+    (
+      cd "$d/LC_MESSAGES"
+      if ls *.po 1> /dev/null 2>&1; then
+        msgcat --use-first *.po > alternc.po 2>/dev/null || cat *.po > alternc.po
+        msgfmt alternc.po -o alternc.mo 2>/dev/null || true
+      fi
+    )
+  fi
+done
+
 # Ensure web server permissions
 chown -R www-data:www-data /var/alternc /var/log/alternc /run/alternc /var/lib/alternc
 chown www-data:www-data /etc/alternc/my.cnf /etc/alternc/local.sh

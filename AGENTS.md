@@ -165,8 +165,11 @@ Pour toutes les opérations d'API, de releases, ou de gestion de dépôts sur Co
 - **Éradication des méthodes d'installation obsolètes (Zéro résidu historique)** :
   - Bannir toute référence à des procédures de déploiement périmées (anciens paquets système obsolètes, commandes `apt-get`, clés `apt-key`, outils de compilation dépassés) dès lors qu'une solution moderne conteneurisée (Docker, Compose, installateur autonome en 1 commande) est déployée.
 
-
-
-
-
-
+## 17. Clarté Visuelle des Interfaces & Fiabilité Absolue de l'Internationalisation (UI Contrast & i18n Reliability)
+- **Contraste, Lisibilité & Hiérarchie Visuelle Impeccables** :
+  - Interdiction formelle de concevoir des pages ou cartes où les conteneurs et les champs de formulaire se fondent confusément dans l'arrière-plan sans contraste distinct.
+  - Les champs de saisie (inputs, select, textarea) doivent toujours présenter des bordures nettes, des arrière-plans bien différenciés de la carte parente, des libellés (labels) parfaitement lisibles et des anneaux de focus nets et élégants.
+  - La carte de connexion et les blocs principaux doivent se détacher avec autorité grâce à une élévation subtile, des bordures contrastées et un espacement aéré, garantissant une ergonomie immédiate.
+- **Fiabilité Absolue des Sélecteurs de Langue et de la Pile i18n** :
+  - Tout sélecteur de langue doit être immédiatement fonctionnel et vérifié en bout de chaîne : génération complète des locales requises dans l'environnement (`locale-gen`), compilation automatique des catalogues `.po` en `.mo` via `msgfmt`, et compatibilité stricte de `setlocale` avec les suffixes `.UTF-8` sous Linux libc.
+  - L'interface du sélecteur de langue doit être soignée, ergonomique (boutons/pilules interactives distinctes) et afficher clairement la langue active avec un état visuel évident.
