@@ -2532,7 +2532,7 @@ msgstr ""
 
 #: ../admin/head.php:42
 msgid "Panel is locked! No one can login!"
-msgstr ""
+msgstr "Das Panel ist gesperrt! Niemand kann sich anmelden!"
 
 #: ../admin/hta_add.php:37 ../admin/hta_list.php:41 ../admin/hta_list.php:80
 msgid "Protect a folder"
@@ -2662,7 +2662,7 @@ msgstr ""
 
 #: ../admin/index.php:59
 msgid "Web Hosting Control Panel"
-msgstr ""
+msgstr "Webhosting-Control-Panel"
 
 #: ../admin/index.php:67
 #, php-format
@@ -2687,7 +2687,7 @@ msgstr ""
 
 #: ../admin/index.php:83
 msgid "Enter"
-msgstr ""
+msgstr "Anmelden"
 
 #: ../admin/index.php:91
 msgid "You must accept the session cookie to log-in"
@@ -5179,7 +5179,7 @@ msgstr ""
 
 #: ../class/m_dom.php:2277
 msgid "Webmail access"
-msgstr ""
+msgstr "Webmail-Zugang"
 
 #: ../class/m_dom.php:2278
 msgid "Squirrelmail Webmail access"
@@ -5560,11 +5560,11 @@ msgstr ""
 
 #: ../class/m_menu.php:111
 msgid "Home / Information"
-msgstr ""
+msgstr "Startseite / Übersicht"
 
 #: ../class/m_menu.php:117
 msgid "Logout"
-msgstr ""
+msgstr "Abmelden"
 
 #: ../class/m_menu.php:123
 msgid "Online help"
@@ -6035,3 +6035,33 @@ msgstr ""
 #, fuzzy
 #~ msgid "The name you entered is incorrect"
 #~ msgstr "Miglied '%s' existiert nicht"
+
+msgid "Cloud Panel"
+msgstr "Cloud-Panel"
+
+msgid "Toggle Menu"
+msgstr "Menü umschalten"
+
+msgid "Quick search... (Ctrl+K)"
+msgstr "Schnellsuche... (Strg+K)"
+
+msgid "Change language"
+msgstr "Sprache ändern"
+
+msgid "Toggle Dark / Light Theme"
+msgstr "Dunkel-/Hell-Design umschalten"
+
+msgid "My Account"
+msgstr "Mein Konto"
+
+msgid "Search domain, mail, database, quota..."
+msgstr "Domain, E-Mail, Datenbank, Kontingent suchen..."
+
+msgid "Lost password?"
+msgstr "Passwort vergessen?"
+
+msgid "Toggle theme"
+msgstr "Design umschalten"
+
+msgid "Request new password"
+msgstr "Neues Passwort anfordern"
