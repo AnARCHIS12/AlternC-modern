@@ -81,7 +81,7 @@ Pour toutes les opérations d'API, de releases, ou de gestion de dépôts sur Co
 - **Rigueur Git & Commits conventionnels (Conventional Commits)** :
   - Messages de commit sémantiques et précis : `feat:`, `fix:`, `refactor:`, `perf:`, `test:`, `docs:`.
   - Commits atomiques et ciblés : une intention claire par commit.
-  - Fichiers `.gitignore` stricts excluant impérativement tout secret, fichier d'environnement sensible ou artefact temporaire.
+  - Fichiers `.gitignore` stricts excluant impérativement tout secret, fichier d'environnement sensible, artefact temporaire, ainsi que les répertoires et fichiers de configuration interne d'outils d'IA ou d'éditeurs (ex: `.codex/`, `.cursorrules`, `.cursor/`, `.gemini/`) qui n'ont pas leur place dans un projet applicatif standard.
 
 ## 9. Garde-fous d'Intégrité & Confinement du Périmètre (Blast Radius & Boundaries)
 - **Non-régression par troncature (Anti-Lazy Coding)** :

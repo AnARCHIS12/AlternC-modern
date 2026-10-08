@@ -47,3 +47,9 @@ composer.lock
 composer.json
 vendor/
 *.bak
+
+# AI tooling & editor internal configs
+.codex/
+.cursor/
+.cursorrules
+.gemini/
