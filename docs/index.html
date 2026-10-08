@@ -20,11 +20,11 @@
       --text-primary: #0f172a;
       --text-secondary: #475569;
       --text-muted: #64748b;
-      --text-link: #2563eb;
+      --text-link: #059669;
 
-      --accent: #2563eb;
-      --accent-hover: #1d4ed8;
-      --accent-light: #eff6ff;
+      --accent: #059669;
+      --accent-hover: #047857;
+      --accent-light: #ecfdf5;
 
       --success: #10b981;
       --success-bg: #ecfdf5;
@@ -43,21 +43,21 @@
     }
 
     [data-theme="dark"] {
-      --bg-page: #0b0f19;
-      --bg-surface: #111827;
-      --bg-sidebar: #070b14;
-      --bg-card: #131c2e;
-      --bg-code: #030712;
-      --border-color: #1f293d;
+      --bg-page: #090a0f;
+      --bg-surface: #11131a;
+      --bg-sidebar: #0c0e14;
+      --bg-card: #151822;
+      --bg-code: #050608;
+      --border-color: #212634;
 
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
       --text-muted: #64748b;
-      --text-link: #60a5fa;
+      --text-link: #34d399;
 
-      --accent: #3b82f6;
-      --accent-hover: #60a5fa;
-      --accent-light: rgba(59, 130, 246, 0.15);
+      --accent: #10b981;
+      --accent-hover: #34d399;
+      --accent-light: rgba(16, 185, 129, 0.12);
 
       --success-bg: rgba(16, 185, 129, 0.12);
       --warning-bg: rgba(245, 158, 11, 0.12);
@@ -546,7 +546,7 @@
     <div class="brand">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
       <span>AlternC Docs</span>
-      <span class="brand-badge">Offline & 100% Souverain</span>
+      <span class="brand-badge">Autogestion & Communs</span>
     </div>
 
     <div class="header-actions">
@@ -571,19 +571,20 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-group">
-        <div class="sidebar-title">Démarrage rapide</div>
+        <div class="sidebar-title">Démarrage & Fondations</div>
         <ul class="sidebar-menu">
           <li><a href="#introduction" class="sidebar-link active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> Introduction</a></li>
+          <li><a href="#anticapitalisme" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Éthique & Anticapitalisme</a></li>
           <li><a href="#docker-install" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg> Installation Docker</a></li>
           <li><a href="#port-isolation" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg> Isolation des ports</a></li>
         </ul>
       </div>
 
       <div class="sidebar-group">
-        <div class="sidebar-title">Architecture & Frontend</div>
+        <div class="sidebar-title">Architecture & Déploiement</div>
         <ul class="sidebar-menu">
           <li><a href="#frontend-2026" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></svg> UI & Design System</a></li>
-          <li><a href="#reverse-proxy" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Nginx & Reverse Proxy</a></li>
+          <li><a href="#reverse-proxy" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg> Nginx & Reverse Proxy</a></li>
           <li><a href="#env-variables" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg> Variables d'environnement</a></li>
           <li><a href="#faq" class="sidebar-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> FAQ & Dépannage</a></li>
         </ul>
@@ -596,28 +597,53 @@
       <!-- Section: Introduction -->
       <section id="introduction">
         <h1>Documentation AlternC</h1>
-        <p class="lead">Plateforme libre d'hébergement mutualisé autogérée, propulsée par PHP 8.3, MariaDB et conteneurisée sans aucun conflit de ports.</p>
+        <p class="lead">Plateforme d'hébergement mutualisé autogérée et émancipatrice, propulsée par PHP 8.3 et conteneurisée sans aucun conflit de ports.</p>
 
         <div class="grid-2">
           <div class="card">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+            <div class="card-title">Autogestion & Communs</div>
+            <p class="card-desc">Émancipation face aux géants de la Big Tech, logiciels libres copyleft et gestion horizontale des infrastructures.</p>
+          </div>
+          <div class="card">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg></div>
             <div class="card-title">Docker PHP 8.3</div>
-            <p class="card-desc">Conteneurisation légère sous PHP 8.3, MariaDB 10.11 et persistance des volumes.</p>
+            <p class="card-desc">Conteneurisation moderne sous PHP 8.3, MariaDB 10.11 LTS et persistance stricte des volumes de données.</p>
           </div>
           <div class="card">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"></rect><rect x="2" y="16" width="6" height="6" rx="1"></rect><rect x="9" y="2" width="6" height="6" rx="1"></rect><path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path><path d="M12 12V8"></path></svg></div>
             <div class="card-title">Zéro Conflit de Port</div>
-            <p class="card-desc">Ports HTTP (8080), SSL (8443) et DB (3307) isolés. Ne bloque aucun service hôte existant.</p>
-          </div>
-          <div class="card">
-            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg></div>
-            <div class="card-title">UI Moderne 2026</div>
-            <p class="card-desc">Thème sombre/clair natif, typographie système, jauges de quotas et navigation fluide.</p>
+            <p class="card-desc">Ports HTTP (8080), SSL (8443) et DB (3307) isolés. Ne monopolise ni ne bloque aucun service hôte existant.</p>
           </div>
           <div class="card">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
-            <div class="card-title">Spotlight (Ctrl+K)</div>
-            <p class="card-desc">Palette de commande intégrée pour trouver un domaine, une boîte mail ou un outil au clavier.</p>
+            <div class="card-title">Navigation & Spotlight</div>
+            <p class="card-desc">Palette de commande (Ctrl+K), thème sombre/clair sobre et synchronisation interactive fluide.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Anticapitalisme -->
+      <section id="anticapitalisme">
+        <h2>Éthique Anticapitaliste & Communs Numériques</h2>
+        <p>AlternC s'ancre dans une volonté d'émancipation collective, d'autogestion et de refus catégorique des logiques marchandes prédatrices du capitalisme de surveillance.</p>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">Refus de la Big Tech & Enclosures Marchandes</div>
+            <p class="card-desc">Rejet des monopoles propriétaires (AWS, Google Cloud, Microsoft Azure) qui privatisent le web et marchandisent les données des utilisatrices et utilisateurs. AlternC permet à tout collectif ou individu de s'émanciper totalement des silos marchands.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Autogestion & Réappropriation Populaire</div>
+            <p class="card-desc">Horizontalité, gestion collective des ressources et maîtrise technique directe des serveurs, boîtes mail et domaines sans intermédiaires commerciaux ni tutelle corporatiste.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Défense Inconditionnelle des Communs</div>
+            <p class="card-desc">Code source 100% libre sous licence copyleft, formats ouverts, protocoles interopérables et refus absolu de toute télémétrie ou dépendance fermée.</p>
+          </div>
+          <div class="card">
+            <div class="card-title">Frugalité & Sobriété Émancipatrice</div>
+            <p class="card-desc">Architecture légère, zéro CDN externe, zéro pistage publicitaire, fonctionnement hors-ligne (offline-first) respectueux des machines et de l'environnement.</p>
           </div>
         </div>
       </section>
@@ -797,6 +823,7 @@
       <div class="toc-title">Sur cette page</div>
       <ul class="toc-list">
         <li class="toc-item"><a href="#introduction" class="toc-link">Introduction</a></li>
+        <li class="toc-item"><a href="#anticapitalisme" class="toc-link">Éthique & Anticapitalisme</a></li>
         <li class="toc-item"><a href="#docker-install" class="toc-link">Installation Docker</a></li>
         <li class="toc-item"><a href="#port-isolation" class="toc-link">Isolation des ports</a></li>
         <li class="toc-item"><a href="#frontend-2026" class="toc-link">Interface & Design 2026</a></li>
@@ -847,18 +874,43 @@
       });
     });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute('id');
-          document.querySelectorAll('.toc-link').forEach(l => {
-            l.classList.toggle('active', l.getAttribute('href') === '#' + id);
-          });
+    function setActiveSection(id) {
+      if (!id) return;
+      document.querySelectorAll('.sidebar-link').forEach(link => {
+        const href = link.getAttribute('href');
+        link.classList.toggle('active', href === '#' + id);
+      });
+      document.querySelectorAll('.toc-link').forEach(link => {
+        const href = link.getAttribute('href');
+        link.classList.toggle('active', href === '#' + id);
+      });
+    }
+
+    document.querySelectorAll('.sidebar-link, .toc-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          setActiveSection(href.substring(1));
         }
       });
-    }, { threshold: 0.3 });
+    });
 
-    document.querySelectorAll('section[id]').forEach(sec => observer.observe(sec));
+    const sections = Array.from(document.querySelectorAll('section[id]'));
+    function updateOnScroll() {
+      const scrollPos = window.scrollY + 120;
+      let currentSection = sections[0] ? sections[0].id : null;
+      for (const sec of sections) {
+        if (sec.offsetTop <= scrollPos) {
+          currentSection = sec.id;
+        }
+      }
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
+    }
+
+    window.addEventListener('scroll', updateOnScroll, { passive: true });
+    updateOnScroll();
   </script>
 </body>
 </html>

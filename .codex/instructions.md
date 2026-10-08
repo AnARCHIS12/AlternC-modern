@@ -155,6 +155,17 @@ Pour toutes les opérations d'API, de releases, ou de gestion de dépôts sur Co
   - Proscrire toute terminologie discriminatoire, capacitiste, excluante ou paternaliste.
   - Veiller à ce que les outils numériques, messages d'interface et documentations soient accueillants, respectueux et accessibles à toutes et tous, sans distinction de genre, d'origine ou de condition sociale.
 
+## 16. Sobriété Visuelle, Ergonomie des Portails & Éradication des Déploiements Obsolètes
+- **Sobriété visuelle et proscription du monochrome agressif ("Tout Bleu")** :
+  - Interdiction d'imposer des interfaces écrasées par un monochrome bleu criard ou des teintes saturées omniprésentes.
+  - Adopter une palette de premier ordre : fonds neutres ardoise/zinc profonds (`#090a0f`, `#12141c`), surfaces contrastées élégantes, typographie système native et accents subtils équilibrés (menthe émeraude `#10b981`, ambre doux, cyan discret).
+- **Rigueur d'interaction UI & Zéro curseur figé (Scrollspy & Navigation)** :
+  - Tout portail de documentation ou tableau de bord doté d'une barre latérale ou table des matières doit synchroniser rigoureusement ses indicateurs actifs (`active`) à la fois au défilement fluide (`IntersectionObserver`/scroll) et au clic, sans jamais laisser un curseur bloqué sur une section d'introduction ou précédente.
+- **Éradication des méthodes d'installation obsolètes (Zéro résidu historique)** :
+  - Bannir toute référence à des procédures de déploiement périmées (anciens paquets système obsolètes, commandes `apt-get`, clés `apt-key`, outils de compilation dépassés) dès lors qu'une solution moderne conteneurisée (Docker, Compose, installateur autonome en 1 commande) est déployée.
+
+
+
 
 
 
