@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+Generate AlternC modern offline-first multilingual documentation portal.
+Supports Esperanto (default), Français, English, and Español.
+Zero external CDN, zero emojis, zero 'souverain' terminology.
+"""
+
+import json
+
+html_template = """<!DOCTYPE html>
 <html lang="eo" data-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -1333,3 +1342,9 @@
   </script>
 </body>
 </html>
+"""
+
+with open("/home/anar/Bureau/AlternC/docs/index.html", "w", encoding="utf-8") as f:
+    f.write(html_template.strip() + "\n")
+
+print("Generated docs/index.html successfully with 4 languages (eo, fr, en, es)")
