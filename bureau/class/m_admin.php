@@ -593,7 +593,7 @@ class m_admin {
      * @param     int     $db_server_id
      * @return boolean Returns FALSE if an error occurs, TRUE if not.
      */
-    function add_mem($login, $pass, $nom, $prenom, $mail, $canpass = 1, $type = 'default', $duration = 0, $notes = "", $force = 0, $create_dom = '', $db_server_id) {
+    function add_mem($login, $pass, $nom, $prenom, $mail, $canpass = 1, $type = 'default', $duration = 0, $notes = "", $force = 0, $create_dom = '', $db_server_id = null) {
         global $msg, $cuid, $mem, $L_MYSQL_DATABASE, $L_MYSQL_LOGIN, $hooks, $action;
         $msg->log("admin", "add_mem", $login . "/" . $mail);
         if (!$this->enabled) {

@@ -1180,7 +1180,7 @@ function csrf_get($return=false) {
 function csrf_check($token=null) {
     global $db,$msg;
 
-    if (is_null($token)) $token=$_POST["csrf"];
+    if (is_null($token)) $token = isset($_POST["csrf"]) ? (string)$_POST["csrf"] : '';
 
     if (!isset($_SESSION["csrf"])) {
         $msg->raise("ERROR", "functions", _("The posted form token is incorrect. Maybe you need to allow cookies"));

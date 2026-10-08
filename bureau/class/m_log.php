@@ -33,7 +33,7 @@ class m_log {
         $msg->debug("log", "list_logs_directory");
 
         $c = array();
-        foreach (glob("${dir}/*log*") as $absfile) {
+        foreach (glob("{$dir}/*log*") as $absfile) {
             $c[] = array("name" => basename($absfile),
             "creation_date" => date("F d Y H:i:s", filectime($absfile)),
             "mtime" => filemtime($absfile),

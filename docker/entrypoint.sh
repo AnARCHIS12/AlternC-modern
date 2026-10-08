@@ -28,6 +28,7 @@ user = ${DB_USER}
 password = ${DB_PASS}
 host = ${DB_HOST}
 database = ${DB_NAME}
+ssl = 0
 EOF
 chmod 640 /etc/alternc/my.cnf
 
@@ -79,11 +80,27 @@ TABLE_EXISTS=$(php -r "
 if [ "$TABLE_EXISTS" -eq "0" ]; then
   echo "[alternc-init] Initialisation des tables AlternC (mysql.sql)..."
   if [ -f /usr/share/alternc/install/mysql.sql ]; then
-    mariadb -h "${DB_HOST}" -u "${DB_USER}" -p"${DB_PASS}" "${DB_NAME}" < /usr/share/alternc/install/mysql.sql
+    mariadb --skip-ssl -h "${DB_HOST}" -u "${DB_USER}" -p"${DB_PASS}" "${DB_NAME}" < /usr/share/alternc/install/mysql.sql
     echo "[alternc-init] Schema de base de donnees cree."
   fi
+else
+  echo "[alternc-init] Base de donnees deja initialisee."
+fi
 
-  # Create default admin account
+# Ensure user permissions on MariaDB for database management
+if [ -n "${DB_ROOT_PASS}" ]; then
+  mariadb --skip-ssl -h "${DB_HOST}" -u root -p"${DB_ROOT_PASS}" -e "GRANT ALL PRIVILEGES ON *.* TO '${DB_USER}'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;" 2>/dev/null || true
+fi
+
+# Create default admin account if not already present
+ADMIN_EXISTS=$(php -r "
+  \$pdo = new PDO('mysql:host=${DB_HOST};dbname=${DB_NAME}', '${DB_USER}', '${DB_PASS}');
+  \$stmt = \$pdo->prepare('SELECT COUNT(*) FROM membres WHERE login = ?');
+  \$stmt->execute(['${ALTERNC_ADMIN_USER}']);
+  echo \$stmt->fetchColumn();
+" 2>/dev/null || echo "0")
+
+if [ "$ADMIN_EXISTS" -eq "0" ]; then
   echo "[alternc-init] Creation du compte administrateur '${ALTERNC_ADMIN_USER}'..."
   php -r "
     require('/usr/share/alternc/panel/class/config_nochk.php');
@@ -96,12 +113,17 @@ if [ "$TABLE_EXISTS" -eq "0" ]; then
       \$db->query(\"INSERT INTO db_servers SET name='Default', host='${DB_HOST}', login='${DB_USER}', password='${DB_PASS}', client='%';\");
       \$dbs = \$db->lastid();
     }
-    \$admin->add_mem('${ALTERNC_ADMIN_USER}', '${ALTERNC_ADMIN_PASS}', 'Administrateur', 'Admin', 'admin@${ALTERNC_FQDN}', 1, 'default', 0, '', 0, '', \$dbs);
+    \$admin->add_mem('${ALTERNC_ADMIN_USER}', '${ALTERNC_ADMIN_PASS}', 'Administrateur', 'Admin', 'admin@alternc.local', 1, 'default', 0, '', 0, '', \$dbs);
+    \$db->query(\"UPDATE membres SET su=1 WHERE login='${ALTERNC_ADMIN_USER}';\");
     echo '[alternc-init] Compte admin initialise avec succes.\n';
   " || true
-else
-  echo "[alternc-init] Base de donnees deja initialisee."
 fi
+
+# Ensure https_warning is disabled for local and port-forwarded HTTP panels
+php -r "
+  require('/usr/share/alternc/panel/class/config_nochk.php');
+  variable_set('https_warning', 0);
+" 2>/dev/null || true
 
 # Ensure web server permissions
 chown -R www-data:www-data /var/alternc /var/log/alternc /run/alternc /var/lib/alternc

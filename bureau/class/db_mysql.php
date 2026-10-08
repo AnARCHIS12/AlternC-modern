@@ -70,7 +70,7 @@ class DB_Sql {
         try {
             $this->pdo_instance = new PDO($dsn, $user, $passwd, $options);
         } catch (PDOException $e) {
-            echo "Mysql", "PDO instance", $e->getMessage();
+            error_log("Mysql PDO instance: " . $e->getMessage());
             return FALSE;
         }
     }

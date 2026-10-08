@@ -52,6 +52,10 @@ RUN { \
     echo 'upload_max_filesize=64M'; \
     echo 'post_max_size=64M'; \
     echo 'memory_limit=256M'; \
+    echo 'display_errors=Off'; \
+    echo 'display_startup_errors=Off'; \
+    echo 'log_errors=On'; \
+    echo 'error_reporting=E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE'; \
 } > /usr/local/etc/php/conf.d/alternc-recommended.ini
 
 # Enable Apache modules

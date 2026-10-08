@@ -42,7 +42,6 @@ if (!defined("ALTERNC_PANEL")) exit(); // must be included ;)
   })();
 </script>
 
-<link rel="stylesheet" href="/javascript/jquery-ui-themes/redmond/jquery-ui.min.css" type="text/css" />
 <link rel="stylesheet" href="styles/style.css" type="text/css" />
 <link rel="stylesheet" href="styles/solid.css" type="text/css" /><!-- fontawesome solid font -->
 <link rel="stylesheet" href="styles/fontawesome.css" type="text/css" />

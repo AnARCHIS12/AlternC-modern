@@ -26,7 +26,7 @@
  */
 class DB_users extends DB_Sql {
 
-    var $Host, $HumanHostname, $User, $Password, $Client;
+    var $Host, $HumanHostname, $User, $Password, $Client, $Database;
 
     /**
      * Creator

@@ -99,7 +99,7 @@ class m_menu {
      * utilitary function used by usort() to order menus
      */
     function order_menu($a, $b) {
-        return $a['pos'] > $b['pos'];
+        return ($a['pos'] ?? 0) <=> ($b['pos'] ?? 0);
     }
 
     /**

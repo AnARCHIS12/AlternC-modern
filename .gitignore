@@ -48,6 +48,10 @@ composer.json
 vendor/
 *.bak
 
+# Environment & secrets
+.env
+*.env
+
 # AI tooling & editor internal configs
 .codex/
 .cursor/

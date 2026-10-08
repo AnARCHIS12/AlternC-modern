@@ -66,7 +66,7 @@ class m_messages {
      * @return boolean TRUE if the message got recorded, FALSE if not.
      *
      */
-    function raise($level = "ERROR", $clsid, $msg, $param = "") {
+    function raise($level, $clsid, $msg, $param = "") {
         $arrInfos  = array();
 
         $level = strtoupper($level);
@@ -225,7 +225,7 @@ class m_messages {
      * @param array $arrMsg the array containing message info.
      * @access private
      */
-    function logAlternC($level = "ERROR", $arrMsg) {
+    function logAlternC($level, $arrMsg = array()) {
         global $mem;
         
         $args = $arrMsg['param'];

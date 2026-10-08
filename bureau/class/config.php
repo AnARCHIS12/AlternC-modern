@@ -120,7 +120,7 @@ $classes = array();
 
 /* PHP CLASSES : automatic include : */
 foreach (glob($root . "class/m_*.php") as $di) {
-    if (preg_match("#${root}class/m_(.*)\\.php$#", $di, $match)) { // $
+    if (preg_match("#{$root}class/m_(.*)\\.php$#", $di, $match)) { // $
         $classes[] = $match[1];
         require_once($di);
     }

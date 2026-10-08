@@ -111,10 +111,10 @@ function variable_set($name, $value, $comment = null) {
 
     variable_init_maybe();
     
-    if (is_object($value) || is_array($value)) {
+    if (is_object($value) || is_array($value) || is_null($value)) {
         $value2 = serialize($value);
     } else {
-        $value2 = $value;
+        $value2 = (string)$value;
     }
     if (array_key_exists($name, $conf)) {
         $previous = $conf[$name];
