@@ -173,3 +173,12 @@ Pour toutes les opérations d'API, de releases, ou de gestion de dépôts sur Co
 - **Fiabilité Absolue des Sélecteurs de Langue et de la Pile i18n** :
   - Tout sélecteur de langue doit être immédiatement fonctionnel et vérifié en bout de chaîne : génération complète des locales requises dans l'environnement (`locale-gen`), compilation automatique des catalogues `.po` en `.mo` via `msgfmt`, et compatibilité stricte de `setlocale` avec les suffixes `.UTF-8` sous Linux libc.
   - L'interface du sélecteur de langue doit être soignée, ergonomique (boutons/pilules interactives distinctes) et afficher clairement la langue active avec un état visuel évident.
+
+## 18. Ergonomie Spacieuse & Fluidité de la Navigation (Spacious Sidebar & Adaptive Navbar)
+- **Largeur généreuse & Anti-écrasement** :
+  - Interdiction de contraindre la barre latérale (sidebar) à des largeurs étriquées ou fixes qui tronquent, compressent ou écrasent les intitulés des menus.
+  - La sidebar doit disposer d'une largeur généreuse et aérée (280px à 300px min), avec adaptation dynamique au contenu, espacements internes généreux (`padding`, `gap`), et gestion propre du texte sans chevauchement avec les badges de quota ou compteurs.
+- **Navbar adaptative & Alignements nets** :
+  - La barre supérieure (navbar) doit s'adapter fluidement au viewport et au texte, sans déborder ni tronquer les éléments de navigation, de recherche ou d'identité utilisateur.
+  - Les éléments interactifs (bouton de repli, barre de recherche, sélecteur de thème, profil) doivent offrir des zones d'interaction confortables et des espacements équilibrés.
+

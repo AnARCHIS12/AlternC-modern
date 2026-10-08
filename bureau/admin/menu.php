@@ -80,11 +80,16 @@ foreach ($obj_menu as $k => $m ) {
   echo "        <span class='menu-icon'><i class='fas {$icon_class}'></i></span>\n";
   echo "        <span class='menu-text " . (!empty($m['class']) ? $m['class'] : '') . "'>" . $m['title'] . "</span>\n";
   echo "      </div>\n";
-
+  echo "      <div class='menu-title-right'>\n";
   if (isset($m['quota_total'])) {
     $is_full = !$quota->cancreate($k);
-    echo "      <span class='quota-badge" . ($is_full ? ' quota-badge-full' : '') . "'>" . $m['quota_used'] . "/" . $m['quota_total'] . "</span>\n";
+    echo "        <span class='quota-badge" . ($is_full ? ' quota-badge-full' : '') . "'>" . $m['quota_used'] . "/" . $m['quota_total'] . "</span>\n";
   }
+  if (!empty($m['links'])) {
+    $is_expanded = !empty($m['visibility']);
+    echo "        <span class='menu-chevron' id='chevron-menu-{$k}'><i class='fas fa-chevron-" . ($is_expanded ? 'down' : 'right') . "'></i></span>\n";
+  }
+  echo "      </div>\n";
   echo "    </div>\n";
   echo "  </a>\n";
 

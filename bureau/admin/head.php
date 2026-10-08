@@ -38,7 +38,10 @@ require_once("html-head.php");
         <i class="fas fa-bars"></i>
       </button>
       <div class="topbar-title">
-        <span class="server-pill"><i class="fas fa-server"></i> <?php echo htmlspecialchars(!empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'AlternC'); ?></span>
+        <span class="server-pill" title="<?php echo htmlspecialchars(!empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'AlternC'); ?>">
+          <i class="fas fa-server"></i>
+          <span class="server-pill-name"><?php echo htmlspecialchars(!empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'AlternC'); ?></span>
+        </span>
       </div>
     </div>
 
@@ -51,6 +54,21 @@ require_once("html-head.php");
     </div>
 
     <div class="topbar-right">
+      <div class="topbar-lang-pills" title="<?php __("Change language"); ?>">
+        <?php
+        $nav_current_lang = isset($lang) ? $lang : (isset($_COOKIE['lang']) ? $_COOKIE['lang'] : 'fr_FR');
+        $nav_langs = array(
+          'fr_FR' => 'FR',
+          'en_US' => 'EN',
+          'es_ES' => 'ES',
+          'de_DE' => 'DE',
+        );
+        foreach ($nav_langs as $code => $lbl) {
+          $is_act = ($code === $nav_current_lang);
+          echo '<a href="?setlang=' . urlencode($code) . '" class="topbar-lang-pill' . ($is_act ? ' active' : '') . '">' . $lbl . '</a>';
+        }
+        ?>
+      </div>
       <button type="button" id="theme-toggle" class="topbar-btn" title="<?php __("Toggle Dark / Light Theme"); ?>" aria-label="Theme">
         <i class="fas fa-moon" id="theme-icon"></i>
       </button>
@@ -59,7 +77,7 @@ require_once("html-head.php");
           <span class="user-avatar"><i class="fas fa-user"></i></span>
           <span class="user-name"><?php echo htmlspecialchars(isset($mem->user['login']) ? $mem->user['login'] : ''); ?></span>
         </a>
-        <a href="mem_logout.php" class="logout-btn" title="<?php __("Logout"); ?>">
+        <a href="mem_logout.php" class="logout-btn" title="<?php __("Logout"); ?>" aria-label="<?php __("Logout"); ?>">
           <i class="fas fa-sign-out-alt"></i>
         </a>
       </div>

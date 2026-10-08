@@ -37,19 +37,18 @@ function is_valid_mail(arg) {
 }
 
 function menu_toggle(id) {
-  $("#"+id).toggle(200, function() {
+  var chevron = $("#chevron-" + id + " i");
+  $("#" + id).slideToggle(180, function() {
     var tmpi = {};
-    // Animation complete.
-    if ($("#"+id).is(":hidden")) {
-      $("#"+id+"-img").attr("src","images/menu_plus.png");
-      tmpi[''+id] = 'hidden';
+    if ($("#" + id).is(":hidden")) {
+      chevron.removeClass("fa-chevron-down").addClass("fa-chevron-right");
+      tmpi['' + id] = 'hidden';
     } else {
-      $("#"+id+"-img").attr("src","images/menu_moins.png");
-      tmpi[''+id] = 'visible';
+      chevron.removeClass("fa-chevron-right").addClass("fa-chevron-down");
+      tmpi['' + id] = 'visible';
     }
-    $.post('tempovars.php', { 'key' : 'menu_toggle', 'val' : tmpi })
+    $.post('tempovars.php', { 'key': 'menu_toggle', 'val': tmpi });
   });
-
 }
 
 function false_if_empty(id,err_msg) {
