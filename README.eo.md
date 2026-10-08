@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="bureau/admin/images/logo.png" alt="AlternC" width="300" />
+</p>
+
 # AlternC
 
 > Emancipa, memmastrumata kaj kontraŭkapitalisma libera platformo por gastigado de retpaĝoj kaj retpoŝtoj, plene modernigita per Docker, PHP 8.3 kaj MariaDB.

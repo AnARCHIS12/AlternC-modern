@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="bureau/admin/images/logo.png" alt="AlternC" width="300" />
+</p>
+
 # AlternC
 
 > Plataforma libre, emancipadora y autogestionada para alojamiento web y correo electrónico, completamente modernizada con Docker, PHP 8.3 y MariaDB.

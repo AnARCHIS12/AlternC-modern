@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="bureau/admin/images/logo.png" alt="AlternC" width="300" />
+</p>
+
 # AlternC
 
 > Emancipatory, self-managed, and anti-capitalist free software suite for web and email hosting, fully modernized with Docker, PHP 8.3, and MariaDB.
